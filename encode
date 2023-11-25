@@ -138,9 +138,9 @@ def parse_args():
 
 def check_update():
     LATEST_VER = requests.get(
-        "https://raw.githubusercontent.com/Psoidh/Insta/main/enc-mahos"
+        "https://raw.githubusercontent.com/Sl-Sanda-Ru/Py-Fuscate/main/.version"
     ).text.strip()
-    with open("enc-mahos") as version:
+    with open(".version") as version:
         return True if float(version.read().strip()) < float(LATEST_VER) else False
 
 
@@ -154,7 +154,7 @@ def update():
         ).content
         with open("encode.py", "wb") as file:
             file.write(latest_source)
-        with open("enc-mahos", "w") as file:
+        with open(".version", "w") as file:
             file.write(LATEST_VER)
 
 
