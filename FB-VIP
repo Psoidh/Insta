@@ -31,8 +31,8 @@ print(f"{S}━━━━━━━━━━━━━━━━━━━━━━━
 choice = int(input("Choose an option:\n1. صــــيد عــــشوائي\n2. صــــيد من مـــلف\nEnter your choice: "))
 
 def generate_arabic_name():
-    mahos = ["علي", "محمد", "أحمد", "فاطمة", "زينب", "خالد", "نور", "ليلى", "ريم", "عبدالله", "سارة", "يوسف", "سميرة", "مصطفى", "رحمان", "أمير", "حنان", "جمال", "ريان"]
-    return random.choice(mahos)
+    ali = ["علي", "محمد", "أحمد", "فاطمة", "زينب", "خالد", "نور", "ليلى", "ريم", "عبدالله", "سارة", "يوسف", "سميرة", "مصطفى", "رحمان", "أمير", "حنان", "جمال", "ريان"]
+    return random.choice(ali)
 
 def generate_english_letters(length):
     english_names = ["John", "Emily", "Michael", "Sophia", "William", "Olivia", "James", "Emma", "Alexander", "Ava", "Daniel", "Mia", "Christopher", "Isabella", "Matthew", "Abigail", "Ethan", "Grace", "Andrew", "Sophie"]
