@@ -141,7 +141,7 @@ def mahos(email):
  {U} [5] {U} {U}email  » 「{email}@gmail.com」
  ━━━━━━━━━━━━━━━━━━━━━━━━━━━''')
             else:
-                Reset = 'https://t.me/maho9s/1770'
+                Reset = 'https://t.me/maho9s/4602'
             tlg = (f"""
 مهوس يحبك وجاب لك متاح انستاجرام
 ⋘─────━*مهوس*━─────⋙
